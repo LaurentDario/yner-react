@@ -2,6 +2,7 @@
 
 import gulp from 'gulp'
 import connect from 'gulp-connect' //Runs a local dev server
+import history from 'connect-history-api-fallback'
 import open from 'gulp-open' //Opens the web browser
 import browserify from 'browserify' //Bundles JS
 import babelify from 'babelify' //Transforms React JSX to JS
@@ -29,11 +30,17 @@ const config = {
 
 //Start a local dev server
 gulp.task('connect', () => {
-  connect.server({
+  connect
+  .server({
     root: ['dist'],
     port: config.port,
     base: config.devBaseUrl,
-    livereload: true
+    livereload: true,
+    middleware: function(connect, opt) {
+      return [
+        history({})
+      ]
+    }
   })
 })
 

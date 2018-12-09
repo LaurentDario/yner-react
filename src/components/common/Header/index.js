@@ -1,21 +1,30 @@
 'use strict'
 
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Header = () => {
+  const checkActive = (match, location) => {
+      //some additional logic to verify you are in the home URI
+      if(!location) return false;
+      const {pathname} = location;
+      return pathname === "/";
+  }
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse">
-          <a href="/" className="navbar-brand">
-            Yner
-          </a>
+          <NavLink to="app" className="navbar-brand">Yner</NavLink>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="/#">Home</a>
+              <NavLink isActive={checkActive} className="nav-link" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#about">About</a>
+              <NavLink isActive={checkActive} className="nav-link" to="/users">Users</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink isActive={checkActive} className="nav-link" to="/about">About</NavLink>
             </li>
           </ul>
         </div>
